@@ -22,50 +22,187 @@ pages = st.sidebar.selectbox("Escolha a sua seção:", [
 st.sidebar.markdown("Desenvolvido por Miguel Parrado RM554007")
 
 if pages == "Quem sou eu?":
-    st.header("Quem sou eu?")
+    st.header("👨‍💻 Quem sou eu?")
     
-    st.image("e43b602a-d5b1-40b8-a0b7-fcae39e1e060.webp", width=600)
+    # Adicionando uma imagem com um layout mais centralizado
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image("e43b602a-d5b1-40b8-a0b7-fcae39e1e060.webp", width=400)  # Ajuste o tamanho da imagem conforme necessário
 
-    st.write("""
-    Sou estudante do 4º semestre de Engenharia de Software na FIAP, em São Paulo, Brasil.
-    Meu foco principal é o desenvolvimento backend, buscando aprimorar minhas habilidades e atuar na construção de sistemas robustos e eficientes.
-    Tenho conhecimentos em React, Java, JavaScript e Python.
-    Meu objetivo de carreira é trabalhar com backend em projetos escaláveis e inovadores.
+    # Texto estilizado com emojis e formatação
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size: 18px !important;
+        line-height: 1.6;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="big-font">
+        🎓 Meu nome é <strong>Miguel Parrado (RM 554007)</strong>, sou estudante do 4º semestre de <strong>Engenharia de Software</strong> na <strong>FIAP</strong>, em São Paulo, Brasil.<br><br>
+        💻 Meu foco principal é o <strong>desenvolvimento backend</strong>, buscando aprimorar minhas habilidades e atuar na construção de sistemas robustos e eficientes.<br><br>
+        🛠️ Tenho conhecimentos em <strong>React</strong>, <strong>Java</strong>, <strong>JavaScript</strong> e <strong>Python</strong>.<br><br>
+        🚀 Meu objetivo de carreira é trabalhar com <strong>backend</strong> em projetos escaláveis e inovadores.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Adicionando uma linha divisória estilizada
+    st.markdown("---")
+
+    # Seção de interesses
+    st.subheader("🌟 Interesses")
+    st.markdown("""
+    - Desenvolvimento de sistemas escaláveis e de alta performance.
+    - Aplicação de boas práticas de engenharia de software.
+    - Aprendizado contínuo de novas tecnologias e metodologias.
     """)
 
 elif pages == "Formação e Experiências Profissionais":
-    st.header("Formação e Experiências Profissionais")
-    st.write("""
-    **Graduação:** Engenharia de Software - FIAP (Previsão de conclusão: 2027)
+    st.header("🎓 Formação e Experiências Profissionais")
+    
+    # Texto estilizado com emojis e formatação
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size: 18px !important;
+        line-height: 1.6;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    **Projetos Acadêmicos:**
-    - Implementação de algoritmos de ordenação em Python, analisando eficiência e desempenho.
-    - Desenvolvimento de aplicações web utilizando React e Node.js.
-    - Estudo e aplicação do Domain Driven Design em Java.
-    """)
+    st.markdown("""
+    <div class="big-font">
+        🏫 **Graduação:** Engenharia de Software - FIAP (Previsão de conclusão: 2027)<br><br>
+        🛠️ **Projetos Acadêmicos:**
+    </div>
+    """, unsafe_allow_html=True)
 
+    # Lista de projetos acadêmicos com emojis
+    st.markdown("""
+    <div class="big-font">
+        - 🐍 **Implementação de algoritmos de ordenação em Python**, analisando eficiência e desempenho.<br>
+        - 🌐 **Desenvolvimento de aplicações web** utilizando React e Node.js.<br>
+        - 🧠 **Estudo e aplicação do Domain Driven Design** em Java.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Adicionando uma linha divisória estilizada
+    st.markdown("---")
+
+    # Seção de experiências profissionais (se houver)
+    st.subheader("💼 Experiências Profissionais")
+    st.markdown("""
+    <div class="big-font">
+        🚧 **Em busca de novas oportunidades** para aplicar meus conhecimentos e crescer profissionalmente.<br>
+        💡 Interessado em estágios ou projetos desafiadores na área de desenvolvimento backend.
+    </div>
+    """, unsafe_allow_html=True)
+    
 elif pages == "Skills":
-    st.header("Skills")
-    st.image("capa-linguagens-em-alta.webp", width=600)
-    st.write("""
-    **Linguagens e Ferramentas:**
-    - Java, JavaScript, Python, React, SQL, GitHub, API REST, Banco de Dados
+    st.header("🛠️ Skills")
+    
+    # Adicionando uma imagem com um layout mais centralizado
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image("capa-linguagens-em-alta.webp", width=500)  # Ajuste o tamanho da imagem conforme necessário
 
-    **Soft Skills:**
-    - Trabalho em equipe, resolução de problemas, comunicação eficaz
+    # Texto estilizado com emojis e formatação
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size: 18px !important;
+        line-height: 1.6;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    **Habilidades do Setor:**
-    - Desenvolvimento backend, arquitetura de software, padrões de projeto, metodologia ágil (Squad Framework, Scrum)
-    """)
+    st.markdown("""
+    <div class="big-font">
+        💻 **Linguagens e Ferramentas:**
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Lista de linguagens e ferramentas com emojis
+    st.markdown("""
+    <div class="big-font">
+        - ☕ **Java**
+        - 🟨 **JavaScript**
+        - 🐍 **Python**
+        - ⚛️ **React**
+        - 🗃️ **SQL**
+        - 🐙 **GitHub**
+        - 🔗 **API REST**
+        - 🗄️ **Banco de Dados**
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Adicionando uma linha divisória estilizada
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="big-font">
+        🤝 **Soft Skills:**
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Lista de soft skills com emojis
+    st.markdown("""
+    <div class="big-font">
+        - 👥 **Trabalho em equipe**
+        - 🧩 **Resolução de problemas**
+        - 🗣️ **Comunicação eficaz**
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Adicionando uma linha divisória estilizada
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="big-font">
+        🚀 **Habilidades do Setor:**
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Lista de habilidades do setor com emojis
+    st.markdown("""
+    <div class="big-font">
+        - ⚙️ **Desenvolvimento backend**
+        - 🏗️ **Arquitetura de software**
+        - 📐 **Padrões de projeto**
+        - 🔄 **Metodologia ágil** (Squad Framework, Scrum)
+    </div>
+    """, unsafe_allow_html=True)
 
 elif pages == "Contato":
-    st.header("Contato")
-    st.write("""
-    **GitHub:** https://github.com/miguelmpp
+    st.header("📞 Contato")
+    
+    # Texto estilizado com emojis e formatação
+    st.markdown("""
+    <style>
+    .big-font {
+        font-size: 18px !important;
+        line-height: 1.6;
+    }
+    .contact-link {
+        font-size: 16px;
+        color: #1E90FF;  /* Cor azul para os links */
+        text-decoration: none;
+    }
+    .contact-link:hover {
+        text-decoration: underline;  /* Sublinhado ao passar o mouse */
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    **LinkedIn:** https://br.linkedin.com/in/miguel-parrado-6a2a5b296
+    st.markdown("""
+    <div class="big-font">
+        👨‍💻 **GitHub:** <a href="https://github.com/miguelmpp" class="contact-link">https://github.com/miguelmpp</a><br><br>
+        🔗 **LinkedIn:** <a href="https://br.linkedin.com/in/miguel-parrado-6a2a5b296" class="contact-link">https://br.linkedin.com/in/miguel-parrado-6a2a5b296</a><br><br>
+    </div>
+    """, unsafe_allow_html=True)
 
-    """)
 
 elif pages == "Análise de Dados":
     st.header("Análise de Dados")
