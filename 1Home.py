@@ -61,11 +61,10 @@ elif pages == "Skills":
 elif pages == "Contato":
     st.header("Contato")
     st.write("""
-    **GitHub:** github.com/seuusuario
+    **GitHub:** https://github.com/miguelmpp
 
-    **LinkedIn:** linkedin.com/in/seuusuario
+    **LinkedIn:** https://br.linkedin.com/in/miguel-parrado-6a2a5b296
 
-    **E-mail:** miguelmpp12@gmail.com
     """)
 
 elif pages == "Análise de Dados":
@@ -308,8 +307,74 @@ elif pages == "Análise de Dados":
             st.write("#### Popularidade das Linguagens")
             st.dataframe(df_popularidade, use_container_width=True)
         
-        # Análise dos dados dos desenvolvedores
-        st.write("### Análise dos Dados dos Desenvolvedores")
+        # Análise Descritiva
+        st.write("### Análise Descritiva dos Dados")
+        
+        # Análise das variáveis numéricas
+        st.write("#### Variáveis Numéricas")
+        st.write(df_desenvolvedores.describe())
+        
+        # Histograma para anos de experiência
+        st.write("#### Distribuição de Anos de Experiência")
+        fig_exp = px.histogram(df_desenvolvedores, x="Experiência (anos)", nbins=20, title="Distribuição de Anos de Experiência")
+        st.plotly_chart(fig_exp)
+        
+        # Histograma para horas semanais
+        st.write("#### Distribuição de Horas Semanais")
+        fig_horas = px.histogram(df_desenvolvedores, x="Uso Semanal (h)", nbins=20, title="Distribuição de Horas Semanais")
+        st.plotly_chart(fig_horas)
+        
+        # Análise de Correlação
+        st.write("### Análise de Correlação")
+        st.write("#### Correlação entre Anos de Experiência e Horas Semanais")
+        corr = df_desenvolvedores[["Experiência (anos)", "Uso Semanal (h)"]].corr().iloc[0, 1]
+        st.write(f"Coeficiente de Correlação: **{corr:.2f}**")
+        
+        # Gráfico de dispersão
+        fig_disp = px.scatter(df_desenvolvedores, x="Experiência (anos)", y="Uso Semanal (h)", title="Relação entre Experiência e Horas Semanais")
+        st.plotly_chart(fig_disp)
+        
+        # Análise de Popularidade das Linguagens
+        st.write("### Análise de Popularidade das Linguagens")
+        st.write("#### Gráfico de Barras da Popularidade das Linguagens")
+        fig_pop = px.bar(df_popularidade, x="Linguagem", y="Popularidade (%)", title="Popularidade das Linguagens")
+        st.plotly_chart(fig_pop)
+        
+        # Análise de Agrupamento (Clustering)
+        st.write("### Análise de Agrupamento (Clustering)")
+        st.write("#### Agrupamento de Desenvolvedores por Experiência e Horas Semanais")
+        
+        from sklearn.cluster import KMeans
+        X = df_desenvolvedores[["Experiência (anos)", "Uso Semanal (h)"]]
+        kmeans = KMeans(n_clusters=3, random_state=42)
+        df_desenvolvedores["Cluster"] = kmeans.fit_predict(X)
+        
+        fig_cluster = px.scatter(df_desenvolvedores, x="Experiência (anos)", y="Uso Semanal (h)", color="Cluster", title="Agrupamento de Desenvolvedores")
+        st.plotly_chart(fig_cluster)
+        
+        # Análise de Tendências
+        st.write("### Análise de Tendências")
+        st.write("#### Linguagens Mais Usadas por Desenvolvedores Experientes")
+        df_exp_linguagem = df_desenvolvedores.groupby("Linguagem Principal")["Experiência (anos)"].mean().reset_index()
+        fig_tendencia = px.bar(df_exp_linguagem, x="Linguagem Principal", y="Experiência (anos)", title="Média de Experiência por Linguagem")
+        st.plotly_chart(fig_tendencia)
+        
+        # Testes Estatísticos
+        st.write("### Testes Estatísticos")
+        st.write("#### Diferença de Horas Semanais entre Desenvolvedores com Mais e Menos Experiência")
+        from scipy.stats import ttest_ind
+        experiencia_media = df_desenvolvedores["Experiência (anos)"].mean()
+        grupo1 = df_desenvolvedores[df_desenvolvedores["Experiência (anos)"] > experiencia_media]["Uso Semanal (h)"]
+        grupo2 = df_desenvolvedores[df_desenvolvedores["Experiência (anos)"] <= experiencia_media]["Uso Semanal (h)"]
+        t_stat, p_value = ttest_ind(grupo1, grupo2)
+        st.write(f"Estatística t: **{t_stat:.2f}**, p-valor: **{p_value:.4f}**")
+        if p_value < 0.05:
+            st.write("**Há uma diferença significativa** nas horas semanais entre desenvolvedores com mais e menos experiência.")
+        else:
+            st.write("**Não há uma diferença significativa** nas horas semanais entre desenvolvedores com mais e menos experiência.")
+        
+        # Análise dos dados dos desenvolvedores (antiga)
+        st.write("### Análise dos Dados dos Desenvolvedores (Original)")
         st.write("Amostra dos dados:")
         st.write(df_desenvolvedores.head())
         
