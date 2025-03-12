@@ -19,7 +19,7 @@ pages = st.sidebar.selectbox("Escolha a sua seção:", [
     "Análise de Dados"
 ])
 
-st.sidebar.markdown("Desenvolvido por Miguel Parrado")
+st.sidebar.markdown("Desenvolvido por Miguel Parrado RM554007")
 
 if pages == "Quem sou eu?":
     st.header("Quem sou eu?")
@@ -91,6 +91,8 @@ elif pages == "Análise de Dados":
     ### 2. Apresentação dos Dados
 
     Os dados utilizados neste estudo foram obtidos a partir da pesquisa disponível no site **Statista**, que apresenta as linguagens de programação mais usadas por desenvolvedores de software em 2024. 
+    A pesquisa original pode ser acessada no seguinte link: [Statista - Worldwide Developer Survey: Most Used Languages](https://www.statista.com/statistics/793628/worldwide-developer-survey-most-used-languages/).
+
     Além disso, foi fornecida uma planilha contendo informações sobre **50 desenvolvedores**, incluindo a linguagem principal utilizada, anos de experiência, horas semanais dedicadas à programação e outras linguagens que conhecem.
 
     As variáveis presentes no conjunto de dados podem ser classificadas em dois tipos:
@@ -287,24 +289,42 @@ elif pages == "Análise de Dados":
     try:
         # Caminho relativo para o arquivo Excel
         caminho_planilha = "desenvolvedores.xlsx"
-        df = pd.read_excel(caminho_planilha)
         
-        st.write("### Dados Carregados Automaticamente")
+        # Carregar as abas do Excel
+        df_desenvolvedores = pd.read_excel(caminho_planilha, sheet_name="Desenvolvedores")
+        df_popularidade = pd.read_excel(caminho_planilha, sheet_name="Popularidade Linguagens")
+        
+        # Exibir os dados completos em abas
+        st.write("### Visualização Completa dos Dados")
+        
+        # Criar abas para cada planilha
+        aba1, aba2 = st.tabs(["Dados dos Desenvolvedores", "Popularidade das Linguagens"])
+        
+        with aba1:
+            st.write("#### Dados dos Desenvolvedores")
+            st.dataframe(df_desenvolvedores, use_container_width=True)
+        
+        with aba2:
+            st.write("#### Popularidade das Linguagens")
+            st.dataframe(df_popularidade, use_container_width=True)
+        
+        # Análise dos dados dos desenvolvedores
+        st.write("### Análise dos Dados dos Desenvolvedores")
         st.write("Amostra dos dados:")
-        st.write(df.head())
+        st.write(df_desenvolvedores.head())
         
-        colunas_numericas = df.select_dtypes(include=[np.number]).columns.tolist()
+        colunas_numericas = df_desenvolvedores.select_dtypes(include=[np.number]).columns.tolist()
         if colunas_numericas:
             coluna_escolhida = st.selectbox("Escolha uma coluna numérica:", colunas_numericas)
             
             if coluna_escolhida:
                 st.write("Distribuição dos dados:")
-                st.write(df[coluna_escolhida].describe())
+                st.write(df_desenvolvedores[coluna_escolhida].describe())
                 
                 dist = st.selectbox("Escolha a distribuição para análise:", ["Poisson", "Normal", "Binomial"])
                 
                 if dist == "Poisson":
-                    lambda_est = df[coluna_escolhida].mean()
+                    lambda_est = df_desenvolvedores[coluna_escolhida].mean()
                     x = np.arange(0, 2 * lambda_est)
                     y = stats.poisson.pmf(x, lambda_est)
                     st.write("Distribuição de Poisson")
@@ -312,8 +332,8 @@ elif pages == "Análise de Dados":
                     st.plotly_chart(fig)
                 
                 elif dist == "Normal":
-                    mu_est = df[coluna_escolhida].mean()
-                    sigma_est = df[coluna_escolhida].std()
+                    mu_est = df_desenvolvedores[coluna_escolhida].mean()
+                    sigma_est = df_desenvolvedores[coluna_escolhida].std()
                     x = np.linspace(mu_est - 4*sigma_est, mu_est + 4*sigma_est, 100)
                     y = stats.norm.pdf(x, mu_est, sigma_est)
                     st.write("Distribuição Normal")
@@ -322,7 +342,7 @@ elif pages == "Análise de Dados":
                 
                 elif dist == "Binomial":
                     n = 10  # número de tentativas fixo
-                    p = df[coluna_escolhida].mean() / max(df[coluna_escolhida])
+                    p = df_desenvolvedores[coluna_escolhida].mean() / max(df_desenvolvedores[coluna_escolhida])
                     x = np.arange(0, n + 1)
                     y = stats.binom.pmf(x, n, p)
                     st.write("Distribuição Binomial")
